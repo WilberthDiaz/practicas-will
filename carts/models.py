@@ -15,7 +15,10 @@ class CartItem(models.Model):
     quantity = models.IntegerField() #Se elimina la cantidad el precio y como es diferente las comillas quedan vacias
     is_active = models.BooleanField(default=True) #Si esta activo o nel
     
-    def __str__(self):
+    def sub_total(self):
+        return self.product.price * self.quantity
+    
+    def __unicode__(self):
         return self.product #Imprime producto
     
     #Registrar las class en cart

@@ -49,9 +49,10 @@
         </div> <!-- col.// -->
         <a href="{% url 'store' %}" class="btn btn-outline-primary">Tienda</a> <!-- Cuando llevan una llave { url 'store'} quiere decir que ejecutando un comando no llamando al servidor-->
         <div class="col-lg  col-md-6 col-sm-12 col">
-            <form action="#" class="search">
+           
+            <form action="{% url 'search'%}" class="search"> <!--se envia al store porque ahi es donde se desplega-->
                 <div class="input-group w-100">
-                    <input type="text" class="form-control" style="width:60%;" placeholder="Search">
+                    <input type="text" class="form-control" style="width:60%;" placeholder="Buscar Producto" name="keyword"> <!--el keyword es nombre parametro-->
                     
                     <div class="input-group-append">
                       <button class="btn btn-primary" type="submit">

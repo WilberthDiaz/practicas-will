@@ -143,10 +143,10 @@
           </div>
         </header>
         <!-- sect-heading -->
-
-
-        {% for product in products %} <!--iteracion de producto en productos-->
         <div class="row">
+        
+        {% if products %}
+        {% for product in products %} <!--iteracion de producto en productos-->
           <div class="col-md-4">
             <figure class="card card-product-grid">
               <div class="img-wrap">
@@ -164,19 +164,61 @@
                   </div>
                   <!-- price-wrap.// -->
                 </div>
-                <a href="#" class="btn btn-block btn-success">Agregar al carrito de compra </a>
+                <a href="{% url 'add_cart' product.id %}" class="btn btn-block btn-success">Agregar al carrito de compra </a>
               </figcaption>
             </figure>
           </div>
-          {% endfor %}
-          <!-- col.// -->
+        {% endfor %}
+        {% else %}
+          <div class= ''>
+            <h2>
+              No se encuentra producto
+            </h2>
+          </div>
+        {% endif%}
+    
+        </div><!--Por este div no se me acomodaban las imagenes porque estaba solito-->
+        <!-- col.// -->
+        <nav class="mt-4" aria-label="Page navigation sample">
 
-          {% endblock %}
-          <!-- Terminacion del bloque dinamico-->
-        </div>
+          {% if products.has_other_pages %}
+          <ul class="pagination">
+
+            {% if products.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            {% endif %}
+
+
+            {% for i in products.paginator.page_range %}
+            
+
+              {% if products.number == 1 %}
+                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+              {% endif %}
+
+
+            {% endfor %}
+
+            {% if products.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            {% endif %}
+
+          </ul>
+          {% endif %}
+        </nav>
+        
+        <!-- Terminacion del bloque dinamico-->
       </main>
     </div>
   </div>
 </section>
+
+{%endblock%}
 
 <!-- ver porque no se quieren alinear las pinches imagenes-->
